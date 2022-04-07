@@ -3,13 +3,13 @@
 ## File System
 fs Module: fs stand for File System is module in Node.js and use manage file in computer.
 
-  reading file => fs.readFile("fillepath", fuction)
+  reading file => fs.readFile("fillepath", function)
   
-  Write file (OverWrite) => fs.writeFile("fillepath", fuction)
+  Write file (OverWrite) => fs.writeFile("fillepath", function)
   
-  Write append data onto existing file => fs.appendFile("fillepath", fuction)
+  Write append data onto existing file => fs.appendFile("fillepath", function)
   
-  Delete file => unlinkFile("fillepath", fuction)
+  Delete file => unlinkFile("fillepath", function)
   
   In Node.js, we use .catch to handle errors in promises.
   
