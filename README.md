@@ -36,9 +36,8 @@ fs Module: fs stand for "File System" is module in Node.js and use manage file i
         - `path` สามารถกำหนดเป็น Parameter ได้ เช่น `/posts/:postId` ซึ่ง `:postId` คือ Parameter
     - `handler` คือ Controller ที่จะทำงานเมื่อ Request วิ่งเข้ามาตาม Route ที่กำหนด
   ##### Returning Responses.
-  -`ใน Express เราสามารถสร้าง Response ได้ด้วย Object res.send()`
-  
-  -`Express สามารถส่ง Response กลับเป็น JSON ได้ด้วย res.json() ซึ่งรับ Input เป็น JavaScript Objec`
+  - `ใน Express เราสามารถสร้าง Response ได้ด้วย Object res.send()`
+  - `ใน Express เราสามารถสร้าง Response กลับเป็น JSON ได้ด้วย res.json() ซึ่งรับ Input เป็น JavaScript Objec`
   
 
 ## Express
