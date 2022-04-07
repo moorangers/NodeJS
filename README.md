@@ -56,73 +56,79 @@ fs Module: fs stand for "File System" is module in Node.js and use manage file i
 
 ##### โค้ดนี้อยู่ในไฟล์ apps/memberRouter.js
 
-Import ตัว "Router" ด้วย Named Import จาก "express"
+- Import ตัว "Router" ด้วย Name Import จาก "express"
         
         import { Router } from "express";
 
-Initialize ตัว Router ขึ้นมาด้วย Router()
+- Initialize ตัว Router ขึ้นมาด้วย Router()
         
-        const memberRouter = Router();
+        const <name>Router = Router();
 
-ใช้ router.method(path, handler) ในการสร้าง Routes แทน app.method(path, handler)
+- ใช้ router.method(path, handler) ในการสร้าง Routes แทน app.method(path, handler)
  
-        memberRouter.get('/', function (req, res) {
-          res.send('Got a GET /members Request');
+        <name>Router.get('/', function (req, res) {
+          res.send('Got a GET /<names> Request');
         });
-        memberRouter.get('/:id', function (req, res) {
-          res.send('Got a GET /members/:id Request');
+        <name>Router.get('/:id', function (req, res) {
+          res.send('Got a GET /<names>/:id Request');
         });
-        memberRouter.post('/', function (req, res) {
-          res.send('Got a POST /members Request');
+        <name>Router.post('/', function (req, res) {
+          res.send('Got a POST /<names> Request');
         });
-        memberRouter.put('/:id', function (req, res) {
-          res.send('Got a PUT /members/:id Request');
+        <name>Router.put('/:id', function (req, res) {
+          res.send('Got a PUT /<names>/:id Request');
         });
-        memberRouter.delete('/:id', function (req, res) {
-          res.send('Got a DELETE /members/:id Request');
+        <name>Router.delete('/:id', function (req, res) {
+          res.send('Got a DELETE /<names>/:id Request');
         });
         
-        export default memberRouter;
+        export default <names>Router;
         
 ##### โค้ดนี้อยู่ในไฟล์ app.js
 
-        import memberRouter from "./apps/memberRouter.js";
-        
-        app.use('/members', memberRouter);
+- import <name>Router แล้วใส่ที่ app.use
+
+        import <name>Router from "./apps/<name>Router.js";
+   
+        app.use('/<names>', <name>Router);
 
 ## Middlewares
 Middleware คือ Function ที่ถูกเรียกใช้ทำงานเวลา Server ได้รับ Request เข้ามา และจะถูก Execute ก่อน Controller Function สามารถ Input (req, res, next)
 ### Creating Middleware
 
-##### โค้ดนี้อยู่ในไฟล์ assignments.validation.js
-     export const validateAssignmentData = (req, res, next) => {
-       const assignmentData = req.body;
-       {
-       <Condition Validation>
-       }
-        next();
-      };
- 
- *** req.body; คือ เอาข้อมูลใน body ไป validate
+##### โค้ดนี้อยู่ในไฟล์ <names>.validation.js
+
+- ประกาศตัวแปร และ req.body; คือ เอาข้อมูลใน body ไป validate
+
+        export const validate<name>Data = (req, res, next) => {
+          const <names>Data = req.body;
+          {
+          <Condition Validation>
+          }
+           next();
+         };
 
 ##### โค้ดนี้อยู่ในไฟล์ app.js
-       import bodyParser from "body-parser";
-       import fs from "fs/promises";
-       import { validateAssignmentData } from "./apps/assignments.validation.js"
 
-       const logging = (req, res, next) => {
-         fs.appendFile(
-           "log.txt",
-           `\n IP: ${req.ip}, HTTP Method: ${req.method}, Endpoint ${req.originalUrl}`
-         );
-         console.log(
-           `ip: ${req.ip}, Method ${req.method}, Endpoint ${req.originalUrl}`
-         ); 
-         next();
-       };
-       
-       app.use(logging);
-       
-       app.use(bodyParser.json());
-       
-       app.use("/assignments", [validateAssignmentData], assignmentRouter);
+- import { validate<name>Data } แล้วนำไปใส่ในรูปแบบ [validate<name>Data] ที่ app.use
+
+        import bodyParser from "body-parser";
+        import fs from "fs/promises";
+        import { validate<name>Data } from "./apps/<names>.validation.js"
+
+        const logging = (req, res, next) => {
+          fs.appendFile(
+            "log.txt",
+            `\n IP: ${req.ip}, HTTP Method: ${req.method}, Endpoint ${req.originalUrl}`
+          );
+          console.log(
+            `ip: ${req.ip}, Method ${req.method}, Endpoint ${req.originalUrl}`
+          ); 
+          next();
+        };
+
+        app.use(logging);
+
+        app.use(bodyParser.json());
+
+        app.use("/<names>", [validate<name>Data], <name>Router);
