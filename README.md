@@ -34,22 +34,22 @@ fs Module: fs stand for "File System" is module in Node.js and use manage file i
 
     Start: npm install express
       
-    import express from "express";
+       import express from "express";
 
-    const app = express();
-    const port = 4000;
+       const app = express();
+       const port = 4000;
 
 - app.get เพื่อสร้าง API Route มาทดสอบ ซึ่งเป็น Method ที่รับ Input 2 ตัว <"Endpoint">, <Callback Function ซึ่งเรียกว่า Controller>
 
-         app.get('/', (req, res) => {
-           res.send('Konichiwa DTs')
-         });
+        app.get('/', (req, res) => {
+          res.send('Konichiwa DTs')
+        });
       
 - app.listen เป็น Method ที่รับ Input 2 ตัว ได้แค่ port, callback Function ที่ทำงานหลังจาก server ถูกเปิดใช้
   
-          app.listen(port, () => {
-           console.log(`Server is running at ${port}`)
-         });
+         app.listen(port, () => {
+          console.log(`Server is running at ${port}`)
+        });
 
 ## Router
 ### Using Express Router
@@ -91,6 +91,38 @@ Initialize ตัว Router ขึ้นมาด้วย Router()
         app.use('/members', memberRouter);
 
 ## Middlewares
+Middleware คือ Function ที่ถูกเรียกใช้ทำงานเวลา Server ได้รับ Request เข้ามา และจะถูก Execute ก่อน Controller Function สามารถ Input (req, res, next)
 ### Creating Middleware
 
+##### โค้ดนี้อยู่ในไฟล์ assignments.validation.js
+     export const validateAssignmentData = (req, res, next) => {
+       const assignmentData = req.body;
+       {
+       <Condition Validation>
+       }
+        next();
+      };
+ 
+ *** req.body; คือ เอาข้อมูลใน body ไป validate
 
+##### โค้ดนี้อยู่ในไฟล์ app.js
+       import bodyParser from "body-parser";
+       import fs from "fs/promises";
+       import { validateAssignmentData } from "./apps/assignments.validation.js"
+
+       const logging = (req, res, next) => {
+         fs.appendFile(
+           "log.txt",
+           `\n IP: ${req.ip}, HTTP Method: ${req.method}, Endpoint ${req.originalUrl}`
+         );
+         console.log(
+           `ip: ${req.ip}, Method ${req.method}, Endpoint ${req.originalUrl}`
+         ); 
+         next();
+       };
+       
+       app.use(logging);
+       
+       app.use(bodyParser.json());
+       
+       app.use("/assignments", [validateAssignmentData], assignmentRouter);
