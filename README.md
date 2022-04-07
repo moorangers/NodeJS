@@ -1,4 +1,4 @@
-# NodeJS
+<img src="https://img.shields.io/badge/Node.js-282C34?logo=node.js&logoColor=339933" alt="Node.js logo" title="Node.js" height="50" />
 Node.js is a JavaScript runtime environment that runs on the V8 engine. It executes JavaScript code outside a web browser.
 
 We can execute a JavaScript file using Node.js with the CLI command node <js_file_path>.
